@@ -1,0 +1,18 @@
+name: s6-api
+services:
+  database:
+    image: mongodb/mongodb-community-server
+    hostname: database-s6
+    restart: always
+    ports:
+      - ${DB_PORT}:27017
+    environment:
+      MONGODB_INITDB_ROOT_USERNAME: ${DB_ROOT_USER}
+      MONGODB_INITDB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+    volumes:
+      - ./mongodb/config/mongod.conf:/etc/mongod.conf
+      - ./mongodb/data/log/:/var/log/mongodb
+      - ./mongodb/data/volume:/var/lib/mongodb
+    command: ['-f', '/etc/mongod.conf']
+
+
