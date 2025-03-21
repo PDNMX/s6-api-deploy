@@ -35,5 +35,18 @@ services:
       MONGO_OAUTH_PORT: ${MONGO_OAUTH_PORT}
       MONGO_OAUTH_DATABASE: ${MONGO_OAUTH_DATABASE}
       MONGO_OAUTH_DB_AUTH: ${MONGO_OAUTH_DB_AUTH}
-
-
+  api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    hostname: api.s6.pdn
+    restart: always
+    ports:
+      - ${API_S6_PORT}:3000
+    environment:
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_AUDIENCE: ${JWT_AUDIENCE}
+      JWT_ISSUER: ${JWT_ISSUER}
+      API_S6_PREFIX: ${API_S6_PREFIX}
+      MONGODB_URI: ${MONGODB_URI}
+      API_S6_INSTITUCION: ${API_S6_INSTITUCION}
